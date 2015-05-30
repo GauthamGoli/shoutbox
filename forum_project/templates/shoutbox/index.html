@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{%load staticfiles %}
+<html>
+	<head>
+		<title>ShoutBox</title>
+		<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div>
+				<h2 class="text-center">Shout Box</h2>
+			</div>
+			<div>
+				<form method="POST" action='/shoutbox/submit/'>
+					<div class="form-group col-md-4 col-md-offset-4">
+						{% csrf_token %}
+						{{ form }}
+
+						<!--textarea class="form-control" rows="5">
+						</textarea-->
+						<br>
+						<div class="col-md-1 col-md-offset-4">
+							<button type="submit" class="btn btn-primary">Shout Out!</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+			{% if posts %}
+			{% for post in posts %}
+			<div class="post col-md-8 col-md-offset-2" style="outline: 1px solid grey;margin-top: 10px;">
+					<div class="col-md-4">					
+						<h5 class="text-left"><strong>Gautham Goli</strong></h5></div>
+					<div class="col-md-4 col-md-offset-4">
+						<h5 class="text-right"><strong>{{ post.datetime }}</strong></h5>
+					</div>
+					<hr>
+					<div class="col-md-12">
+						<p> {{ post.message }}</p>
+					</div>
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</body>
+</html>
